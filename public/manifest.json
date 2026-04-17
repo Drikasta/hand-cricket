@@ -1,0 +1,18 @@
+{
+  "name": "Hand Cricket Multiplayer",
+  "short_name": "Hand Cricket",
+  "description": "Pick your number · Outsmart your opponent",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c1a3a",
+  "theme_color": "#0c1a3a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

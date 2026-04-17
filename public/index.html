@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0c1a3a">
+  <title>Hand Cricket</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+  <!-- Prevent FOUC -->
+  <style>body { background: #0c1a3a; }</style>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ════════════════════════════════════════════════════════
+       HOME SCREEN
+       ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-home">
+    <div class="home-hero">
+      <div class="home-logo">
+        <div class="logo-badge">
+          <div class="logo-icons">🏏 🏟️</div>
+          <div class="logo-title">HAND CRICKET</div>
+          <div class="logo-sub">MULTIPLAYER</div>
+        </div>
+      </div>
+      <p class="home-tagline">Pick your number · Outsmart your opponent</p>
+    </div>
+
+    <div class="home-form">
+      <div>
+        <div class="field-label">YOUR NAME</div>
+        <input type="text" id="inp-name" placeholder="Enter your name" maxlength="14" autocomplete="off" spellcheck="false">
+      </div>
+
+      <button class="btn btn-primary" id="btn-create">
+        🎮 CREATE MATCH
+      </button>
+
+      <button class="btn btn-solo" id="btn-solo">
+        🤖 PLAY SOLO
+      </button>
+
+      <div class="divider"><span>OR JOIN</span></div>
+
+      <div>
+        <div class="field-label">ROOM CODE</div>
+        <div class="join-row">
+          <input type="text" id="inp-code" class="code-input" placeholder="ABC123" maxlength="6" autocomplete="off" spellcheck="false">
+          <button class="btn btn-secondary" id="btn-join">JOIN</button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="home-error"></div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       WAITING SCREEN
+       ════════════════════════════════════════════════════════ -->
+  <div class="screen hidden" id="screen-waiting">
+    <div class="waiting-header" style="padding-top:60px;">
+      <h2>SHARE WITH FRIEND</h2>
+    </div>
+
+    <div class="code-card" style="margin: 0 auto;">
+      <div class="code-label">ROOM CODE</div>
+      <div class="code-value" id="display-code">------</div>
+      <button class="btn-copy" id="btn-copy">📋 COPY CODE</button>
+    </div>
+
+    <div class="waiting-status">
+      <div class="spinner"></div>
+      <p>Waiting for opponent…</p>
+    </div>
+
+    <button class="btn btn-ghost" id="btn-cancel-wait" style="margin-top:auto; margin-bottom:20px;">Cancel</button>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       GAME SCREEN
+       ════════════════════════════════════════════════════════ -->
+  <div class="screen hidden" id="screen-game">
+
+    <!-- Top bar -->
+    <div class="game-topbar">
+      <button class="btn-exit" id="btn-exit-game">✕</button>
+      <div class="game-logo-pill">
+        <span class="logo-emoji">🏏</span>
+        <span class="logo-text">HAND CRICKET</span>
+      </div>
+    </div>
+
+    <!-- Scoreboard -->
+    <div class="scoreboard">
+      <!-- Player 0 card -->
+      <div class="player-card p0-card" id="pcard-0">
+        <div class="card-top">
+          <div class="team-avatar" id="pavatar-0">🏙️</div>
+          <div class="card-info">
+            <div class="card-name" id="pname-0">Player 1</div>
+            <div class="card-role" id="prole-0">🏏 Batting</div>
+          </div>
+          <div class="card-score"><span id="pscore-0">0</span><span> runs</span></div>
+        </div>
+        <div class="ball-history-row" id="phistory-0">
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+        </div>
+      </div>
+
+      <!-- Player 1 card -->
+      <div class="player-card p1-card" id="pcard-1">
+        <div class="card-top">
+          <div class="team-avatar" id="pavatar-1">🏰</div>
+          <div class="card-info">
+            <div class="card-name" id="pname-1">Player 2</div>
+            <div class="card-role" id="prole-1">⚾ Bowling</div>
+          </div>
+          <div class="card-score"><span id="pscore-1">0</span><span> runs</span></div>
+        </div>
+        <div class="ball-history-row" id="phistory-1">
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+          <div class="ball-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stadium -->
+    <div class="stadium">
+      <div class="stadium-inner">
+        <div class="team-banner" id="team-banner">HAND CRICKET</div>
+
+        <div class="fists-row">
+          <!-- Player 0 fist (left) -->
+          <div class="fist-wrap">
+            <div class="pick-bubble" id="pbubble-0"></div>
+            <!-- Blue fist SVG -->
+            <svg class="fist-svg" id="fist-0" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="fg0a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#4a90e2"/>
+                  <stop offset="100%" stop-color="#1e5fb5"/>
+                </linearGradient>
+              </defs>
+              <!-- Finger 1 -->
+              <rect x="22" y="24" width="13" height="34" rx="6.5" fill="url(#fg0a)"/>
+              <!-- Finger 2 -->
+              <rect x="37" y="16" width="13" height="42" rx="6.5" fill="url(#fg0a)"/>
+              <!-- Finger 3 -->
+              <rect x="52" y="20" width="13" height="38" rx="6.5" fill="url(#fg0a)"/>
+              <!-- Finger 4 -->
+              <rect x="67" y="26" width="11" height="32" rx="5.5" fill="url(#fg0a)"/>
+              <!-- Palm -->
+              <rect x="14" y="50" width="74" height="54" rx="14" fill="url(#fg0a)"/>
+              <!-- Thumb -->
+              <ellipse cx="10" cy="72" rx="9" ry="13" fill="url(#fg0a)" transform="rotate(-10 10 72)"/>
+              <!-- Knuckle shading -->
+              <rect x="22" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="37" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="52" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="67" y="48" width="11" height="7" rx="3" fill="rgba(0,0,0,0.18)"/>
+              <!-- Highlight -->
+              <ellipse cx="50" cy="58" rx="28" ry="6" fill="rgba(255,255,255,0.12)"/>
+            </svg>
+            <div class="fist-label" id="flabel-0">YOU</div>
+          </div>
+
+          <div class="vs-label">VS</div>
+
+          <!-- Player 1 fist (right, mirrored) -->
+          <div class="fist-wrap">
+            <div class="pick-bubble" id="pbubble-1"></div>
+            <!-- Red fist SVG (mirrored) -->
+            <svg class="fist-svg" id="fist-1" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
+              <defs>
+                <linearGradient id="fg1a" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#e84040"/>
+                  <stop offset="100%" stop-color="#b02020"/>
+                </linearGradient>
+              </defs>
+              <rect x="22" y="24" width="13" height="34" rx="6.5" fill="url(#fg1a)"/>
+              <rect x="37" y="16" width="13" height="42" rx="6.5" fill="url(#fg1a)"/>
+              <rect x="52" y="20" width="13" height="38" rx="6.5" fill="url(#fg1a)"/>
+              <rect x="67" y="26" width="11" height="32" rx="5.5" fill="url(#fg1a)"/>
+              <rect x="14" y="50" width="74" height="54" rx="14" fill="url(#fg1a)"/>
+              <ellipse cx="10" cy="72" rx="9" ry="13" fill="url(#fg1a)" transform="rotate(-10 10 72)"/>
+              <rect x="22" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="37" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="52" y="48" width="13" height="7" rx="3.5" fill="rgba(0,0,0,0.18)"/>
+              <rect x="67" y="48" width="11" height="7" rx="3" fill="rgba(0,0,0,0.18)"/>
+              <ellipse cx="50" cy="58" rx="28" ry="6" fill="rgba(255,255,255,0.12)"/>
+            </svg>
+            <div class="fist-label" id="flabel-1">OPP</div>
+          </div>
+        </div>
+
+        <div class="target-bar" id="target-bar">🎯 Target: — runs</div>
+      </div>
+
+      <!-- Flash overlay inside stadium -->
+      <div class="result-flash" id="result-flash">
+        <div class="flash-badge" id="flash-badge"></div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="timer-row">
+        <div class="timer-line"></div>
+        <div class="timer-circle">
+          <svg class="timer-svg" viewBox="0 0 52 52">
+            <circle class="timer-track" cx="26" cy="26" r="21"/>
+            <circle class="timer-progress" id="timer-progress" cx="26" cy="26" r="21"/>
+          </svg>
+          <span class="timer-num" id="timer-num">5</span>
+        </div>
+        <div class="timer-line"></div>
+      </div>
+
+      <div class="status-bar" id="status-bar">Pick a number!</div>
+
+      <div class="num-grid" id="num-grid">
+        <button class="num-btn" data-num="1">1</button>
+        <button class="num-btn" data-num="2">2</button>
+        <button class="num-btn" data-num="3">3</button>
+        <button class="num-btn" data-num="4">4</button>
+        <button class="num-btn" data-num="5">5</button>
+        <button class="num-btn" data-num="6">6</button>
+      </div>
+    </div>
+
+  </div><!-- /screen-game -->
+
+
+  <!-- ════════════════════════════════════════════════════════
+       INNINGS BREAK SCREEN
+       ════════════════════════════════════════════════════════ -->
+  <div class="screen hidden" id="screen-break">
+    <div class="break-title" style="padding-top:60px;">END OF INNINGS 1</div>
+
+    <div class="break-card" style="margin: 0 auto;">
+      <div class="break-score-row">
+        <div class="break-player p0">
+          <div class="break-player-name" id="break-name-0">P1</div>
+          <div class="break-player-score" id="break-score-0">0</div>
+        </div>
+        <div class="break-vs">vs</div>
+        <div class="break-player p1">
+          <div class="break-player-name" id="break-name-1">P2</div>
+          <div class="break-player-score" id="break-score-1">0</div>
+        </div>
+      </div>
+
+      <div class="break-target">
+        <div class="target-label">TARGET TO WIN</div>
+        <div class="target-num" id="break-target">—</div>
+        <div class="target-label">runs needed</div>
+      </div>
+    </div>
+
+    <div class="break-progress">
+      <div class="break-dot active"></div>
+      <div class="break-dot active"></div>
+      <div class="break-dot"></div>
+    </div>
+
+    <p style="color: rgba(255,255,255,0.45); font-size:13px; font-weight:600;">Starting innings 2…</p>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════════════════
+       RESULT SCREEN
+       ════════════════════════════════════════════════════════ -->
+  <div class="screen hidden" id="screen-result">
+    <div class="result-hero">
+      <div class="result-trophy" id="result-trophy">🏆</div>
+      <div class="result-headline" id="result-headline">You won!</div>
+      <div class="result-sub" id="result-sub"></div>
+    </div>
+
+    <div class="result-scoreboard" id="result-scoreboard">
+      <!-- Filled dynamically -->
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-primary" id="btn-play-again">🔄 PLAY AGAIN</button>
+      <button class="btn btn-secondary" id="btn-go-home">🏠 MAIN MENU</button>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+
+<!-- Disconnect overlay -->
+<div id="overlay-disconnect">
+  <div class="disconnect-card">
+    <div class="dc-icon">📡</div>
+    <h3>Opponent Left</h3>
+    <p>Your opponent disconnected from the match.</p>
+    <button class="btn btn-primary" id="btn-dc-home">Back to Menu</button>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script src="game.js"></script>
+</body>
+</html>

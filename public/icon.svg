@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#0c1a3a"/>
+  <rect x="24" y="24" width="464" height="464" rx="80" fill="#14336b"/>
+  <ellipse cx="256" cy="290" rx="200" ry="90" fill="#0a3d29" opacity="0.9"/>
+  <rect x="240" y="230" width="32" height="120" rx="4" fill="#d4c5a0"/>
+  <rect x="237" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="246" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="255" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="252" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="261" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="270" y="230" width="5" height="30" rx="2" fill="#c8b880"/>
+  <rect x="236" y="228" width="25" height="4" rx="2" fill="#e8d870"/>
+  <rect x="251" y="228" width="25" height="4" rx="2" fill="#e8d870"/>
+  <rect x="290" y="195" width="10" height="70" rx="5" fill="#c8973a" transform="rotate(-20 295 230)"/>
+  <rect x="280" y="190" width="30" height="14" rx="4" fill="#8b5e2a" transform="rotate(-20 295 197)"/>
+  <circle cx="300" cy="170" r="16" fill="#e0302a"/>
+  <circle cx="296" cy="165" r="4" fill="rgba(255,255,255,0.3)"/>
+  <path d="M 288 160 Q 300 155 312 160" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+  <circle cx="256" cy="100" r="72" fill="#ffd022"/>
+  <circle cx="256" cy="100" r="60" fill="#0c1a3a"/>
+  <text x="256" y="120" text-anchor="middle" font-family="system-ui, sans-serif" font-size="72" font-weight="900" fill="#ffd022">6</text>
+</svg>
