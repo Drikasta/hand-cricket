@@ -49,4 +49,11 @@
 \
 - Simplicity First: Make every change as simple as possible. Impact minimal code.\
 - No Laziness: Find root causes. No temporary fixes. Senior developer standards.\
-- Minimal Impact: Only touch what's necessary. No side effects with new bugs.
+- Minimal Impact: Only touch what's necessary. No side effects with new bugs.\
+
+## Live Deployment
+- **Live URL:** https://hand-cricket-p9sg.onrender.com/
+- **GitHub:** https://github.com/Drikasta/hand-cricket
+- **Render dashboard:** https://render.com/dashboard
+- **Deploy:** git push → Render auto-deploys from main
+- **Render free tier:** sleeps after 15min idle → upgrade to $7/mo starter for always-on
